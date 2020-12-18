@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecentFilesTest {
@@ -15,6 +16,13 @@ public class RecentFilesTest {
     public void testWhenProgramStartsAndEmptyListIsExpected() {
         List<File> list = recentFiles.getList();
         assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testWhenFileIsAdded() {
+        recentFiles.addFile(File);
+        List<File> list = recentFiles.getList();
+        assertFalse(list.isEmpty());
     }
 
 }
