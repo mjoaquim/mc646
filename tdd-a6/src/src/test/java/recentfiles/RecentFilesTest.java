@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 
 public class RecentFilesTest {
 
-    @Test
-    public void test() {
+    private RecentFiles recentFiles;
 
+    @Test
+    public void testWhenProgramStartsAndEmptyListIsExpected() {
+        recentFiles.getList();
     }
 
 }
