@@ -14,4 +14,8 @@ public class RecentFiles {
     public List<File> getList(){
         return elements;
     }
+
+    public void addFile(final File file) {
+        elements.add(file);
+    }
 }
