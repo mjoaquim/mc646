@@ -57,7 +57,7 @@ public class RecentFilesTest {
         }
         List<File> list = recentFiles.getList();
         assertFalse(list.isEmpty());
-        List<File> list2 = recentFiles.cleanList();
+        recentFiles.cleanList();
         assertTrue(list.isEmpty());
     }
 

@@ -21,6 +21,10 @@ public class RecentFiles {
         reduce();
     }
 
+    public void cleanList() {
+        elements.clear();
+    }
+
     private void reduce() {
         while(elements.size() > MAX_SIZE_LIST) {
             elements.remove(elements.size() - 1);
