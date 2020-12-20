@@ -15,10 +15,12 @@ public class RecentFiles {
         return elements;
     }
 
-    public void addFile(final File file) {
-        elements.remove(file);
-        elements.add(0, file);
-        reduce();
+    public void addFile(final File file, boolean isEnabled) {
+        if(isEnabled) {
+            elements.remove(file);
+            elements.add(0, file);
+            reduce();
+        }
     }
 
     public void cleanList() {
