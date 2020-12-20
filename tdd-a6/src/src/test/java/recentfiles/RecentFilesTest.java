@@ -4,7 +4,6 @@ import model.File;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,12 +37,13 @@ public class RecentFilesTest {
 
     @Test
     public void testWhenMultipleFilesAreAdded() {
-        recentFiles.addFile(buildFile());
+        final File file1  = buildFile();
+        recentFiles.addFile(file1);
         recentFiles.addFile(buildFile2());
-        recentFiles.addFile(buildFile());
-        recentFiles.addFile(buildFile2());
+        recentFiles.addFile(file1);
         List<File> list = recentFiles.getList();
-        assertEquals(list.get(0), buildFile2());
+        assertFalse(list.isEmpty());
+        assertEquals(file1, list.get(0));
     }
 
     private File buildFile() {

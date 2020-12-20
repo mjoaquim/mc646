@@ -3,8 +3,7 @@ package recentfiles;
 import lombok.AllArgsConstructor;
 import model.File;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 public class RecentFiles {
@@ -16,6 +15,7 @@ public class RecentFiles {
     }
 
     public void addFile(final File file) {
-        elements.add(file);
+        elements.remove(file);
+        elements.add(0, file);
     }
 }
