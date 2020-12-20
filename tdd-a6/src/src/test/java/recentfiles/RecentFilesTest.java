@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RecentFilesTest {
 
     private RecentFiles recentFiles = new RecentFiles();
-    private static final String name = "NAME";
-    private static final String path = "PATH";
+    private static final String NAME = "NAME";
+    private static final String PATH = "PATH";
+    private static final int MAX_SIZE_LIST = 10;
 
     @Test
     public void testWhenProgramStartsAndEmptyListIsExpected() {
@@ -37,27 +38,28 @@ public class RecentFilesTest {
 
     @Test
     public void testWhenMultipleFilesAreAdded() {
-        final File file1  = buildFile();
-        recentFiles.addFile(file1);
-        recentFiles.addFile(buildFile2());
-        recentFiles.addFile(file1);
+        for(int i = 0; i < MAX_SIZE_LIST*2; i++) {
+            recentFiles.addFile(buildFile().toBuilder()
+                                           .name(NAME.concat(String.valueOf(i)))
+                                           .build());
+        }
         List<File> list = recentFiles.getList();
-        assertFalse(list.isEmpty());
-        assertEquals(file1, list.get(0));
+        assertEquals(NAME.concat(String.valueOf((MAX_SIZE_LIST*2)-1)), list.get(0).getName());
+        assertEquals(list.size(), MAX_SIZE_LIST);
     }
 
     private File buildFile() {
         return File.builder()
-                   .name(name)
-                   .path(path)
+                   .name(NAME)
+                   .path(PATH)
                    .lastOpen(Instant.now())
                    .build();
     }
 
     private File buildFile2() {
         return File.builder()
-                .name(name + "_2")
-                .path(path)
+                .name(NAME + "_2")
+                .path(PATH)
                 .lastOpen(Instant.now())
                 .build();
     }
