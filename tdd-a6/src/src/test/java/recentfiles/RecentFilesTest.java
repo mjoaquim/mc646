@@ -48,6 +48,19 @@ public class RecentFilesTest {
         assertEquals(list.size(), MAX_SIZE_LIST);
     }
 
+    @Test
+    public void testWhenCleanRecentFiles() {
+        for(int i = 0; i < MAX_SIZE_LIST*2; i++) {
+            recentFiles.addFile(buildFile().toBuilder()
+                                           .name(NAME.concat(String.valueOf(i)))
+                                           .build());
+        }
+        List<File> list = recentFiles.getList();
+        assertFalse(list.isEmpty());
+        List<File> list2 = recentFiles.cleanList();
+        assertTrue(list.isEmpty());
+    }
+
     private File buildFile() {
         return File.builder()
                    .name(NAME)
