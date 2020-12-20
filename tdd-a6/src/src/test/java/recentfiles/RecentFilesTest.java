@@ -56,12 +56,4 @@ public class RecentFilesTest {
                    .build();
     }
 
-    private File buildFile2() {
-        return File.builder()
-                .name(NAME + "_2")
-                .path(PATH)
-                .lastOpen(Instant.now())
-                .build();
-    }
-
 }
