@@ -22,26 +22,26 @@ public class RecentFilesTest {
     }
 
     @Test
-    public void testWhenFileIsAdded() {
-        recentFiles.addFile(buildFile());
+    public void testWhenFileIsAddedAndFeatureIsEnabled() {
+        recentFiles.addFile(buildFile(), true);
         List<File> list = recentFiles.getList();
         assertFalse(list.isEmpty());
     }
 
     @Test
-    public void testWhenMultipleEqualsFilesAreAdded() {
-        recentFiles.addFile(buildFile());
-        recentFiles.addFile(buildFile());
+    public void testWhenMultipleEqualsFilesAreAddedAndFeatureIsEnabled() {
+        recentFiles.addFile(buildFile(), true);
+        recentFiles.addFile(buildFile(), true);
         List<File> list = recentFiles.getList();
         assertEquals(1, list.size());
     }
 
     @Test
-    public void testWhenMultipleFilesAreAdded() {
+    public void testWhenMultipleFilesAreAddedAndFeatureIsEnabled() {
         for(int i = 0; i < MAX_SIZE_LIST*2; i++) {
             recentFiles.addFile(buildFile().toBuilder()
                                            .name(NAME.concat(String.valueOf(i)))
-                                           .build());
+                                           .build(), true);
         }
         List<File> list = recentFiles.getList();
         assertEquals(NAME.concat(String.valueOf((MAX_SIZE_LIST*2)-1)), list.get(0).getName());
@@ -49,17 +49,29 @@ public class RecentFilesTest {
     }
 
     @Test
-    public void testWhenCleanRecentFiles() {
+    public void testWhenCleanRecentFilesAndFeatureIsEnabled() {
         for(int i = 0; i < MAX_SIZE_LIST*2; i++) {
             recentFiles.addFile(buildFile().toBuilder()
                                            .name(NAME.concat(String.valueOf(i)))
-                                           .build());
+                                           .build(), true);
         }
         List<File> list = recentFiles.getList();
         assertFalse(list.isEmpty());
         recentFiles.cleanList();
         assertTrue(list.isEmpty());
     }
+
+    @Test
+    public void testWhenCleanRecentFilesAndFeatureIsNotEnabled() {
+        for(int i = 0; i < MAX_SIZE_LIST*2; i++) {
+            recentFiles.addFile(buildFile().toBuilder()
+                    .name(NAME.concat(String.valueOf(i)))
+                    .build(), false);
+        }
+        List<File> list = recentFiles.getList();
+        assertTrue(list.isEmpty());
+    }
+
 
     private File buildFile() {
         return File.builder()
